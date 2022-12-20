@@ -42,7 +42,10 @@ public abstract class BaseballSimulator {
     }
 
     public final void simulate(){
-
+        do{
+            BaseballResult baseballResult = playBaseball();
+            notifyGameResult(baseballResult);
+        }while(getShouldRestart());
     }
 
     protected abstract void notifyInningResult(InningResult inningResult);
