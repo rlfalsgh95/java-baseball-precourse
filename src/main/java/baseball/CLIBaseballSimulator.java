@@ -37,6 +37,7 @@ public class CLIBaseballSimulator extends BaseballSimulator{
 
     @Override
     protected void notifyGameResult(BaseballResult baseballResult) {
+        System.out.println(super.pitchLen + "개의 숫자를 모두 맞히셨습니다! 게임 종료");
     }
 
     @Override
