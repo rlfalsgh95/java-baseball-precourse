@@ -5,6 +5,8 @@ import baseball.dto.InningResult;
 import baseball.dto.PitchResult;
 import util.Range;
 
+import java.util.Arrays;
+
 public abstract class BaseballSimulator {
     protected final int pitchLen;
     private final Range pitchRange;
@@ -38,7 +40,17 @@ public abstract class BaseballSimulator {
     }
 
     private BaseballResult playBaseball(){
-        return null;
+        char[] simulatorPitch = getRandomSimulatorInning();
+        System.out.println("시뮬레이션 값 : " + Arrays.toString(simulatorPitch));
+
+        InningResult inningResult = null;
+        do{
+            char[] userPitch = getUserPitch();
+            inningResult = playInning(userPitch, simulatorPitch);
+            notifyInningResult(inningResult);
+        }while(!isGameEnd(inningResult));
+
+        return new BaseballResult();
     }
 
     public final void simulate(){
