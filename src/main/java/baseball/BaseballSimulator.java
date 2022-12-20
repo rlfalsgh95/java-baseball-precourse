@@ -16,15 +16,25 @@ public abstract class BaseballSimulator {
     }
 
     private char[] getRandomSimulatorInning(){
-        return null;
+        int simulatorInning = (int) ((Math.random() * pitchRange.getHigh()) + pitchRange.getLow());
+        String simulatorInningFormatted = String.format("%" + "0" + pitchLen + "d", simulatorInning);
+        return simulatorInningFormatted.toCharArray();
     }
 
     protected boolean userPitchIsValid(String userPitch){
-        return false;
+        boolean ExceedNumberPitches = (userPitch.length() != pitchLen);
+
+        boolean isDigit = true;
+        for(int pitchIdx = 0; pitchIdx < userPitch.length(); pitchIdx++){
+            if(!Character.isDigit(userPitch.charAt(pitchIdx))) isDigit = false;
+        }
+
+        return (!ExceedNumberPitches && isDigit);
     }
 
     private boolean isGameEnd(InningResult inningResult) {
-        return false;
+        int strikeCnt = inningResult.getStrikeCnt();
+        return (strikeCnt == pitchLen);
     }
 
     protected boolean isGameRestart(String userInput) {
@@ -32,11 +42,23 @@ public abstract class BaseballSimulator {
     }
 
     protected PitchResult playPitch(char userPitch, char simulatorPitch){
-        return null;
+        if(simulatorPitch == userPitch){
+            return new PitchResult(0, 1);
+        }
+        return new PitchResult(1, 0);
     }
 
     private InningResult playInning(char[] userPitches, char[] simulatorPitches){
-        return null;
+        InningResult inningResult = new InningResult(0, 0);
+
+        if(userPitches.length != simulatorPitches.length){
+        }
+
+        for(int pitchIdx = 0; pitchIdx < pitchLen; pitchIdx++){
+            PitchResult pitchResult = playPitch(userPitches[pitchIdx], simulatorPitches[pitchIdx]);
+            inningResult.addPitchResult(pitchResult);
+        }
+        return inningResult;
     }
 
     private BaseballResult playBaseball(){
