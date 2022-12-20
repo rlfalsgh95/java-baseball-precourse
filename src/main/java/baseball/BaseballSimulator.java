@@ -38,7 +38,7 @@ public abstract class BaseballSimulator {
     }
 
     protected boolean isGameRestart(String userInput) {
-        return false;
+        return userInput.equals("1");
     }
 
     protected PitchResult playPitch(char userPitch, char simulatorPitch){

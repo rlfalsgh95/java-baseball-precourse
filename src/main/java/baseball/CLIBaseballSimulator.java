@@ -18,7 +18,7 @@ public class CLIBaseballSimulator extends BaseballSimulator{
     }
 
     private void displayGameRestart() {
-
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     }
 
     @Override
@@ -42,7 +42,9 @@ public class CLIBaseballSimulator extends BaseballSimulator{
 
     @Override
     protected boolean getShouldRestart() {
-       return false;
+        displayGameRestart();
+        String shouldRestart = scanner.nextLine();
+        return isGameRestart(shouldRestart);
     }
 
     @Override
