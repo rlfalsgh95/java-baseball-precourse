@@ -1,5 +1,6 @@
 package baseball;
 
+import baseball.constant.BaseballConstant;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 import baseball.dto.PitchResult;
@@ -15,21 +16,21 @@ public abstract class BaseballSimulator {
         this.pitchRange = new Range(pitchLen, true);
     }
 
-    private char[] getRandomSimulatorInning(){
+    private char[] getRandomSimulatorPitches(){
         int simulatorInning = (int) ((Math.random() * pitchRange.getHigh()) + pitchRange.getLow());
         String simulatorInningFormatted = String.format("%" + "0" + pitchLen + "d", simulatorInning);
         return simulatorInningFormatted.toCharArray();
     }
 
-    protected boolean userPitchIsValid(String userPitch){
-        boolean ExceedNumberPitches = (userPitch.length() != pitchLen);
+    protected boolean userPitchIsValid(String userPitches){
+        boolean ExceedPitchesLen = (userPitches.length() != pitchLen);
 
         boolean isDigit = true;
-        for(int pitchIdx = 0; pitchIdx < userPitch.length(); pitchIdx++){
-            if(!Character.isDigit(userPitch.charAt(pitchIdx))) isDigit = false;
+        for(int pitchIdx = 0; pitchIdx < userPitches.length(); pitchIdx++){
+            if(!Character.isDigit(userPitches.charAt(pitchIdx))) isDigit = false;
         }
 
-        return (!ExceedNumberPitches && isDigit);
+        return (!ExceedPitchesLen && isDigit);
     }
 
     private boolean isGameEnd(InningResult inningResult) {
@@ -38,7 +39,7 @@ public abstract class BaseballSimulator {
     }
 
     protected boolean isGameRestart(String userInput) {
-        return userInput.equals("1");
+        return userInput.equals(BaseballConstant.GAME_RESTART);
     }
 
     protected PitchResult playPitch(char userPitch, char simulatorPitch){
@@ -62,7 +63,7 @@ public abstract class BaseballSimulator {
     }
 
     private BaseballResult playBaseball(){
-        char[] simulatorPitch = getRandomSimulatorInning();
+        char[] simulatorPitch = getRandomSimulatorPitches();
         System.out.println("시뮬레이션 값 : " + Arrays.toString(simulatorPitch));
 
         InningResult inningResult = null;
