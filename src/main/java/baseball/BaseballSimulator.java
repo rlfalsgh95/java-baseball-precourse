@@ -41,25 +41,32 @@ public abstract class BaseballSimulator {
         return (strikeCnt == pitchLen);
     }
 
-    protected boolean isGameRestart(String userInput) {
+    protected boolean isGameRestart(String userInput) { // TODO : userInput - > shouldRestart
         return userInput.equals(BaseballConstant.GAME_RESTART);
     }
 
-    protected PitchResult playPitch(char userPitch, char simulatorPitch){
-        if(simulatorPitch == userPitch){
+    protected PitchResult playPitch(int pitchIdx, char userPitch, char[] simulatorPitches){
+        PitchResult pitchResult = new PitchResult();
+        if(simulatorPitches[pitchIdx] == userPitch){
             return new PitchResult(0, 1);
         }
-        return new PitchResult(1, 0);
+
+        if(Arrays.asList(simulatorPitches).contains(userPitch)){    // TODO : char를 List로  과정에서 성능 이슈 발생 가능
+            return new PitchResult(1, 0);
+        }
+
+        return pitchResult;
     }
 
     private InningResult playInning(char[] userPitches, char[] simulatorPitches){
         InningResult inningResult = new InningResult();
 
-        if(userPitches.length != simulatorPitches.length){
+        if(!pitchesIsValid(userPitches) || !pitchesIsValid(simulatorPitches)){
+            throw new IllegalArgumentException();
         }
 
         for(int pitchIdx = 0; pitchIdx < pitchLen; pitchIdx++){
-            PitchResult pitchResult = playPitch(userPitches[pitchIdx], simulatorPitches[pitchIdx]);
+            PitchResult pitchResult = playPitch(pitchIdx, userPitches[pitchIdx], simulatorPitches);
             inningResult.addPitchResult(pitchResult);
         }
         return inningResult;
