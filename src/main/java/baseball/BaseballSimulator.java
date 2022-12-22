@@ -53,7 +53,7 @@ public abstract class BaseballSimulator {
     }
 
     private InningResult playInning(char[] userPitches, char[] simulatorPitches){
-        InningResult inningResult = new InningResult(0, 0);
+        InningResult inningResult = new InningResult();
 
         if(userPitches.length != simulatorPitches.length){
         }

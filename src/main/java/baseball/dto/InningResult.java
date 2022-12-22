@@ -2,6 +2,11 @@ package baseball.dto;
 
 public class InningResult {
     private int ballCnt, strikeCnt;
+    public InningResult(){
+        this.ballCnt = 0;
+        this.strikeCnt = 0;
+    }
+
     public InningResult(int ballCnt, int strikeCnt){
         this.ballCnt = ballCnt;
         this.strikeCnt = strikeCnt;
