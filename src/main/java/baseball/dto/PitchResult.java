@@ -1,7 +1,12 @@
 package baseball.dto;
 
 public class PitchResult {
-    private final int ballCnt, strikeCnt;
+    private int ballCnt, strikeCnt;
+    public PitchResult(){
+        this.ballCnt = 0;
+        this.strikeCnt = 0;
+    }
+
     public PitchResult(int ballCnt, int strikeCnt){
         this.ballCnt = ballCnt;
         this.strikeCnt = strikeCnt;
@@ -13,5 +18,13 @@ public class PitchResult {
 
     public int getStrikeCnt(){
         return this.strikeCnt;
+    }
+
+    public void addBall(){
+        this.ballCnt++;
+    }
+
+    public void addStrike(){
+        this.strikeCnt++;
     }
 }

@@ -48,11 +48,11 @@ public abstract class BaseballSimulator {
     protected PitchResult playPitch(int pitchIdx, char userPitch, char[] simulatorPitches){
         PitchResult pitchResult = new PitchResult();
         if(simulatorPitches[pitchIdx] == userPitch){
-            return new PitchResult(0, 1);
+            pitchResult.addStrike();
         }
 
         if(Arrays.asList(simulatorPitches).contains(userPitch)){    // TODO : char를 List로  과정에서 성능 이슈 발생 가능
-            return new PitchResult(1, 0);
+            pitchResult.addBall();
         }
 
         return pitchResult;
