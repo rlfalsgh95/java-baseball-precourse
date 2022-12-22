@@ -21,9 +21,25 @@ class ApplicationTest extends NsTest {
     }
 
     @Test
-    void 예외_테스트() {
+    void 예외_테스트_입력_긴_길이() {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("1234"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_입력_짧은_길이() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("8"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_입력_범위() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("011"))
                         .isInstanceOf(IllegalArgumentException.class)
         );
     }
