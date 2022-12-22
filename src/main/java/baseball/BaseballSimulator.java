@@ -24,25 +24,17 @@ public abstract class BaseballSimulator {
         return uniquePitches;
     }
 
-    private List<Character> getRandomSimulatorPitches(){
+    private List<Integer> getRandomSimulatorPitches(){
         Set<Integer> uniquePitches = makeUniquePitches();
-        List<Character> simulatorPitches = new LinkedList<>();
-        for(int pitch : uniquePitches){
-            simulatorPitches.add(Character.forDigit(pitch, BaseballConstant.PITCH_RADIX));
-        }
+        List<Integer> simulatorPitches = new LinkedList<>(uniquePitches);
 
         return simulatorPitches;
     }
 
-    protected boolean isPatchesValid(List<Character> pitches){
+    protected boolean isPitchesValid(List<Integer> pitches){
         boolean ExceedPitchesLen = (pitches.size() != pitchLen);
 
-        boolean isDigit = true;
-        for(int pitchIdx = 0; pitchIdx < pitches.size(); pitchIdx++){
-            if(!Character.isDigit(pitches.get(pitchIdx))) isDigit = false;
-        }
-
-        return (!ExceedPitchesLen && isDigit);
+        return (!ExceedPitchesLen);
     }
 
     private boolean isGameEnd(InningResult inningResult) {
@@ -54,17 +46,17 @@ public abstract class BaseballSimulator {
         return userInput.equals(BaseballConstant.GAME_RESTART);
     }
 
-    protected PitchResult playPitch(int pitchIdx, char userPitch, List<Character> simulatorPitches){
+    protected PitchResult playPitch(int pitchIdx, int userPitch, List<Integer> simulatorPitches){
         boolean isStrike = (simulatorPitches.get(pitchIdx) == userPitch);
         boolean isBall = (!isStrike && simulatorPitches.contains(userPitch));
 
         return new PitchResult(isBall, isStrike);
     }
 
-    private InningResult playInning(List<Character> userPitches, List<Character> simulatorPitches){
+    private InningResult playInning(List<Integer> userPitches, List<Integer> simulatorPitches){
         InningResult inningResult = new InningResult();
 
-        if(!isPatchesValid(userPitches) || !isPatchesValid(simulatorPitches)){
+        if(!isPitchesValid(userPitches) || !isPitchesValid(simulatorPitches)){
             throw new IllegalArgumentException();
         }
 
@@ -76,12 +68,12 @@ public abstract class BaseballSimulator {
     }
 
     private BaseballResult playBaseball(){
-        List<Character> simulatorPitch = getRandomSimulatorPitches();
+        List<Integer> simulatorPitch = getRandomSimulatorPitches();
         System.out.println("시뮬레이션 값 : " + simulatorPitch);
 
         InningResult inningResult = null;
         do{
-            List<Character> userPitches = getUserPitches();
+            List<Integer> userPitches = getUserPitches();
             inningResult = playInning(userPitches, simulatorPitch);
             notifyInningResult(inningResult);
         }while(!isGameEnd(inningResult));
@@ -100,7 +92,7 @@ public abstract class BaseballSimulator {
 
     protected abstract void notifyGameResult(BaseballResult baseballResult);
 
-    protected abstract List<Character> getUserPitches();
+    protected abstract List<Integer> getUserPitches();
 
     protected abstract boolean getShouldRestart();
 }

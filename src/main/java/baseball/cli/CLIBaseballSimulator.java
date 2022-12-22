@@ -24,6 +24,26 @@ public class CLIBaseballSimulator extends BaseballSimulator{
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
     }
 
+    private boolean isUserPitchValid(String userPitchInput){
+        boolean isDigit = true;
+        for(int pitchIdx = 0; pitchIdx < userPitchInput.length(); pitchIdx++){
+            if(!Character.isDigit(userPitchInput.charAt(pitchIdx))){
+                isDigit = false;
+            }
+        }
+        return isDigit;
+    }
+
+    private List<Integer> convertUserPitchToIntegerList(String userPitchInput){
+        List<Integer> userPitches = new LinkedList<>();
+        for(int pitchIdx = 0; pitchIdx < userPitchInput.length(); pitchIdx++){
+            char pitch = userPitchInput.charAt(pitchIdx);
+            userPitches.add(Character.getNumericValue(pitch));
+        }
+
+        return userPitches;
+    }
+
     @Override
     protected void notifyInningResult(InningResult inningResult) {
         if(inningResult.isNothing()){
@@ -53,19 +73,14 @@ public class CLIBaseballSimulator extends BaseballSimulator{
     }
 
     @Override
-    protected List<Character> getUserPitches() {
+    protected List<Integer> getUserPitches() {
         displayUserPitchInput();
         String userPitchInput = scanner.nextLine();
-        List<Character> userPitches = new LinkedList<>();
 
-        for(Character pitch : userPitchInput.toCharArray()){
-            userPitches.add(pitch);
-        }
-
-        if(!isPatchesValid(userPitches)){
+        if(!isUserPitchValid(userPitchInput)){
             throw new IllegalArgumentException();
         }
 
-        return userPitches;
+        return convertUserPitchToIntegerList(userPitchInput);
     }
 }
