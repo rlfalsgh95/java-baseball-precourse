@@ -4,22 +4,25 @@ import baseball.constant.BaseballConstant;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 import baseball.dto.PitchResult;
-import util.Range;
+import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Arrays;
 
 public abstract class BaseballSimulator {
     protected final int pitchLen;
-    private final Range pitchRange;
     public BaseballSimulator(int pitchLen){
         this.pitchLen = pitchLen;
-        this.pitchRange = new Range(pitchLen, true);
     }
 
     private char[] getRandomSimulatorPitches(){
-        int simulatorInning = (int) ((Math.random() * pitchRange.getHigh()) + pitchRange.getLow());
-        String simulatorInningFormatted = String.format("%" + "0" + pitchLen + "d", simulatorInning);
-        return simulatorInningFormatted.toCharArray();
+        char[] simulatorPitches = new char [pitchLen];
+
+        for(int pitchIdx = 0; pitchIdx < pitchLen; pitchIdx++){
+            int pickedPitch = Randoms.pickNumberInRange(BaseballConstant.MIN_PITCH_VALUE, BaseballConstant.MAX_PITCH_VALUE);
+            simulatorPitches[pitchIdx] = Character.forDigit(pickedPitch, 10);
+        }
+
+        return simulatorPitches;
     }
 
     protected boolean userPitchIsValid(String userPitches){
