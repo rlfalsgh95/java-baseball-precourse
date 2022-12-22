@@ -1,6 +1,10 @@
 package baseball.dto;
 
 public class InningResult {
+    private final static String NOTHING_MSG = "낫싱";
+    private final static String BALL_MSG = "볼";
+    private final static String STRIKE_MSG = "스트라이크";
+
     private int ballCnt, strikeCnt;
     public InningResult(){
         this.ballCnt = 0;
@@ -26,11 +30,46 @@ public class InningResult {
     }
 
     public boolean isNothing(){
-        return (ballCnt == 0 && strikeCnt == 0);
+        return (this.ballCnt == 0 && this.strikeCnt == 0);
+    }
+
+    public boolean includesBall(){
+        return (this.ballCnt != 0);
+    }
+
+    public boolean includesStrike(){
+        return (this.strikeCnt != 0);
     }
 
     public void addPitchResult(PitchResult pitchResult){
         this.ballCnt += pitchResult.getBallCnt();
         this.strikeCnt += pitchResult.getStrikeCnt();
+    }
+
+    public String getResultMsg(){
+        if(this.isNothing()){
+            return NOTHING_MSG;
+        }
+
+        StringBuilder resultMsgBuilder = new StringBuilder();
+        if(this.includesBall()){
+            resultMsgBuilder.append(this.ballCnt + BALL_MSG + " ");
+        }
+
+        if(this.includesStrike()){
+            resultMsgBuilder.append(this.strikeCnt + STRIKE_MSG);
+        }
+
+        return resultMsgBuilder.toString();
+    }
+    @Override
+    public String toString() {
+        if(this.isNothing()){
+            return NOTHING_MSG;
+        }
+
+        return this.ballCnt + BALL_MSG
+                + " "
+                + this.strikeCnt + STRIKE_MSG;
     }
 }

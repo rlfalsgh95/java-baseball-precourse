@@ -46,23 +46,13 @@ public class CLIBaseballSimulator extends BaseballSimulator{
 
     @Override
     protected void notifyInningResult(InningResult inningResult) {
-        if(inningResult.isNothing()){
-            System.out.print("낫싱");
-        }
-        if(inningResult.getBallCnt() != 0){
-            System.out.print(inningResult.getBallCnt() + "볼");
-            System.out.print(" ");
-        }
-        if(inningResult.getStrikeCnt() != 0){
-            System.out.print(inningResult.getStrikeCnt() + "스트라이크");
-        }
-
-        System.out.println();
+        String inningResultMsg = inningResult.getResultMsg();
+        System.out.println(inningResultMsg);
     }
 
     @Override
     protected void notifyGameResult(BaseballResult baseballResult) {
-        System.out.println(super.pitchLen + "개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.printf("%d개의 숫자를 모두 맞히셨습니다! 게임 종료\n", super.pitchLen);
     }
 
     @Override
