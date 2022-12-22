@@ -50,11 +50,13 @@ public class CLIBaseballSimulator extends BaseballSimulator{
     @Override
     protected char[] getUserPitches() {
         char[] userPitches = null;
-        do{ // write 또는 read 하는 과정에서 에러가 발생한다면, 게임을 종료시켜야 함 (계속해서 진행한다면, 무한 루프에 빠질 수 있음)
-            displayUserPitchInput();
-            String userPitchInput = scanner.nextLine();
-            userPitches = userPitchInput.toCharArray();
-        }while(!pitchesIsValid(userPitches));
+        displayUserPitchInput();
+        String userPitchInput = scanner.nextLine();
+        userPitches = userPitchInput.toCharArray();
+
+        if(!pitchesIsValid(userPitches)){
+            throw new IllegalArgumentException();
+        }
 
         return userPitches;
     }
