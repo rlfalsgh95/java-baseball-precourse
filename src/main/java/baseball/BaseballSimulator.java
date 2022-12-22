@@ -25,12 +25,12 @@ public abstract class BaseballSimulator {
         return simulatorPitches;
     }
 
-    protected boolean userPitchIsValid(String userPitches){
-        boolean ExceedPitchesLen = (userPitches.length() != pitchLen);
+    protected boolean pitchesIsValid(char[] pitches){
+        boolean ExceedPitchesLen = (pitches.length != pitchLen);
 
         boolean isDigit = true;
-        for(int pitchIdx = 0; pitchIdx < userPitches.length(); pitchIdx++){
-            if(!Character.isDigit(userPitches.charAt(pitchIdx))) isDigit = false;
+        for(int pitchIdx = 0; pitchIdx < pitches.length; pitchIdx++){
+            if(!Character.isDigit(pitches[pitchIdx])) isDigit = false;
         }
 
         return (!ExceedPitchesLen && isDigit);
@@ -71,7 +71,7 @@ public abstract class BaseballSimulator {
 
         InningResult inningResult = null;
         do{
-            char[] userPitch = getUserPitch();
+            char[] userPitch = getUserPitches();
             inningResult = playInning(userPitch, simulatorPitch);
             notifyInningResult(inningResult);
         }while(!isGameEnd(inningResult));
@@ -90,7 +90,7 @@ public abstract class BaseballSimulator {
 
     protected abstract void notifyGameResult(BaseballResult baseballResult);
 
-    protected abstract char[] getUserPitch();
+    protected abstract char[] getUserPitches();
 
     protected abstract boolean getShouldRestart();
 }
