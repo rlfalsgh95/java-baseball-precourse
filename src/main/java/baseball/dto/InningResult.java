@@ -25,6 +25,10 @@ public class InningResult {
         return this.strikeCnt;
     }
 
+    public boolean isNothing(){
+        return (ballCnt == 0 && strikeCnt == 0);
+    }
+
     public void addPitchResult(PitchResult pitchResult){
         this.ballCnt += pitchResult.getBallCnt();
         this.strikeCnt += pitchResult.getStrikeCnt();
