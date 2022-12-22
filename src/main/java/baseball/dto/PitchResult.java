@@ -7,6 +7,15 @@ public class PitchResult {
         this.strikeCnt = 0;
     }
 
+    public PitchResult(boolean isBall, boolean isStrike){
+        if(isStrike){
+            this.strikeCnt = 1;
+        }
+        if(isBall){
+            this.ballCnt = 1;
+        }
+    }
+
     public PitchResult(int ballCnt, int strikeCnt){
         this.ballCnt = ballCnt;
         this.strikeCnt = strikeCnt;

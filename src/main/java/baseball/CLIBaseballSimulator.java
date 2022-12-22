@@ -3,6 +3,8 @@ package baseball;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CLIBaseballSimulator extends BaseballSimulator{
@@ -48,13 +50,16 @@ public class CLIBaseballSimulator extends BaseballSimulator{
     }
 
     @Override
-    protected char[] getUserPitches() {
-        char[] userPitches = null;
+    protected List<Character> getUserPitches() {
         displayUserPitchInput();
         String userPitchInput = scanner.nextLine();
-        userPitches = userPitchInput.toCharArray();
+        List<Character> userPitches = new LinkedList<>();
 
-        if(!pitchesIsValid(userPitches)){
+        for(Character pitch : userPitchInput.toCharArray()){
+            userPitches.add(pitch);
+        }
+
+        if(!isPatchesValid(userPitches)){
             throw new IllegalArgumentException();
         }
 
