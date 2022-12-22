@@ -1,5 +1,6 @@
-package baseball;
+package baseball.cli;
 
+import baseball.BaseballSimulator;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 
