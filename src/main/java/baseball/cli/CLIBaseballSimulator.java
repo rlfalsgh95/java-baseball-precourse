@@ -3,6 +3,7 @@ package baseball.cli;
 import baseball.BaseballSimulator;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
+import baseball.generator.PitchGenerator;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +12,8 @@ import java.util.Scanner;
 public class CLIBaseballSimulator extends BaseballSimulator{
     private final Scanner scanner;
 
-    public CLIBaseballSimulator(int pitchLen){
-        super(pitchLen);
+    public CLIBaseballSimulator(int pitchLen, PitchGenerator pitchGenerator){
+        super(pitchLen, pitchGenerator);
         this.scanner = new Scanner(System.in);
     }
 

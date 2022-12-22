@@ -1,74 +1,30 @@
 package baseball;
 
-import baseball.constant.BaseballConstant;
+import baseball.constant.BaseballSimulatorConstant;
 import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 import baseball.dto.PitchResult;
-import camp.nextstep.edu.missionutils.Randoms;
+import baseball.generator.PitchGenerator;
 
 import java.util.*;
 
 public abstract class BaseballSimulator {
     protected final int pitchLen;
-    public BaseballSimulator(int pitchLen){
+    private final PitchGenerator pitchGenerator;
+    public BaseballSimulator(int pitchLen, PitchGenerator pitchGenerator){
         this.pitchLen = pitchLen;
+        this.pitchGenerator = pitchGenerator;
     }
 
-    private Set<Integer> makeUniquePitches(){
-        Set<Integer> uniquePitches = new LinkedHashSet<>();
-        while(uniquePitches.size() < pitchLen){
-            int pickedPitch = Randoms.pickNumberInRange(BaseballConstant.MIN_PITCH_VALUE, BaseballConstant.MAX_PITCH_VALUE);
-            uniquePitches.add(pickedPitch);
-        }
-
-        return uniquePitches;
-    }
-
-    private List<Integer> getRandomSimulatorPitches(){
-        Set<Integer> uniquePitches = makeUniquePitches();
-        List<Integer> simulatorPitches = new LinkedList<>(uniquePitches);
-
-        return simulatorPitches;
-    }
-
-    protected boolean isPitchesValid(List<Integer> pitches){
-        boolean ExceedPitchesLen = (pitches.size() != pitchLen);
-
-        return (!ExceedPitchesLen);
-    }
-
-    private boolean isGameEnd(InningResult inningResult) {
-        int strikeCnt = inningResult.getStrikeCnt();
-        return (strikeCnt == pitchLen);
-    }
-
-    protected boolean isGameRestart(String userInput) { // TODO : userInput - > shouldRestart
-        return userInput.equals(BaseballConstant.GAME_RESTART);
-    }
-
-    protected PitchResult playPitch(int pitchIdx, int userPitch, List<Integer> simulatorPitches){
-        boolean isStrike = (simulatorPitches.get(pitchIdx) == userPitch);
-        boolean isBall = (!isStrike && simulatorPitches.contains(userPitch));
-
-        return new PitchResult(isBall, isStrike);
-    }
-
-    private InningResult playInning(List<Integer> userPitches, List<Integer> simulatorPitches){
-        InningResult inningResult = new InningResult();
-
-        if(!isPitchesValid(userPitches) || !isPitchesValid(simulatorPitches)){
-            throw new IllegalArgumentException();
-        }
-
-        for(int pitchIdx = 0; pitchIdx < pitchLen; pitchIdx++){
-            PitchResult pitchResult = playPitch(pitchIdx, userPitches.get(pitchIdx), simulatorPitches);
-            inningResult.addPitchResult(pitchResult);
-        }
-        return inningResult;
+    public final void simulate(){
+        do{
+            BaseballResult baseballResult = playBaseball();
+            notifyGameResult(baseballResult);
+        }while(getShouldRestart());
     }
 
     private BaseballResult playBaseball(){
-        List<Integer> simulatorPitch = getRandomSimulatorPitches();
+        List<Integer> simulatorPitch = pitchGenerator.generatePitches();
         System.out.println("시뮬레이션 값 : " + simulatorPitch);
 
         InningResult inningResult = null;
@@ -81,11 +37,33 @@ public abstract class BaseballSimulator {
         return new BaseballResult();
     }
 
-    public final void simulate(){
-        do{
-            BaseballResult baseballResult = playBaseball();
-            notifyGameResult(baseballResult);
-        }while(getShouldRestart());
+    private InningResult playInning(List<Integer> userPitches, List<Integer> simulatorPitches){
+        if(!pitchGenerator.isPitchesValid(userPitches) || !pitchGenerator.isPitchesValid(simulatorPitches)){
+            throw new IllegalArgumentException();
+        }
+
+        InningResult inningResult = new InningResult();
+        for(int pitchIdx = 0; pitchIdx < pitchLen; pitchIdx++){
+            PitchResult pitchResult = playPitch(pitchIdx, userPitches.get(pitchIdx), simulatorPitches);
+            inningResult.addPitchResult(pitchResult);
+        }
+        return inningResult;
+    }
+
+    private PitchResult playPitch(int pitchIdx, int userPitch, List<Integer> simulatorPitches){
+        boolean isStrike = (simulatorPitches.get(pitchIdx) == userPitch);
+        boolean isBall = (!isStrike && simulatorPitches.contains(userPitch));
+
+        return new PitchResult(isBall, isStrike);
+    }
+
+    private boolean isGameEnd(InningResult inningResult) {
+        int strikeCnt = inningResult.getStrikeCnt();
+        return (strikeCnt == pitchLen);
+    }
+
+    protected boolean isGameRestart(String shouldRestart) {
+        return shouldRestart.equals(BaseballSimulatorConstant.GAME_RESTART);
     }
 
     protected abstract void notifyInningResult(InningResult inningResult);
