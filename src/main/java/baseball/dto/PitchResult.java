@@ -7,11 +7,11 @@ public class PitchResult {
         this.strikeCnt = 0;
     }
 
-    public PitchResult(boolean isBall, boolean isStrike){
-        if(isStrike){
+    public PitchResult(boolean includeBall, boolean includeStrike){
+        if(includeStrike){
             this.strikeCnt = 1;
         }
-        if(isBall){
+        if(includeBall){
             this.ballCnt = 1;
         }
     }
