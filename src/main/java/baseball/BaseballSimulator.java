@@ -5,15 +5,17 @@ import baseball.dto.BaseballResult;
 import baseball.dto.InningResult;
 import baseball.dto.PitchResult;
 import baseball.generator.PitchGenerator;
+import baseball.generator.RandomUniquePitchGenerator;
 
 import java.util.*;
 
 public abstract class BaseballSimulator {
     protected final int pitchLen;
     private final PitchGenerator pitchGenerator;
-    public BaseballSimulator(int pitchLen, PitchGenerator pitchGenerator){
+
+    public BaseballSimulator(int pitchLen){
         this.pitchLen = pitchLen;
-        this.pitchGenerator = pitchGenerator;
+        this.pitchGenerator = new RandomUniquePitchGenerator(pitchLen);
     }
 
     public final void simulate(){

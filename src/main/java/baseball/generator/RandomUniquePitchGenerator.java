@@ -7,13 +7,9 @@ import java.util.*;
 
 public class RandomUniquePitchGenerator implements PitchGenerator{
     private final int pitchLen;
-    private final int minPitchValue;
-    private final int maxPitchValue;
 
-    public RandomUniquePitchGenerator(int pitchLen, int minPitchValue, int maxPitchValue){
+    public RandomUniquePitchGenerator(int pitchLen){
         this.pitchLen = pitchLen;
-        this.minPitchValue = minPitchValue;
-        this.maxPitchValue = maxPitchValue;
     }
 
     public List<Integer> generatePitches(){
@@ -32,7 +28,7 @@ public class RandomUniquePitchGenerator implements PitchGenerator{
     private Set<Integer> generateUniquePitchValues(){
         Set<Integer> uniquePitches = new LinkedHashSet<>();
         while(uniquePitches.size() < pitchLen){
-            int pickedPitch = Randoms.pickNumberInRange(BaseballSimulatorConstant.MIN_PITCH_VALUE, BaseballSimulatorConstant.MAX_PITCH_VALUE);
+            int pickedPitch = Randoms.pickNumberInRange(PitchGeneratorConstant.MIN_PITCH_VALUE, PitchGeneratorConstant.MAX_PITCH_VALUE);
             uniquePitches.add(pickedPitch);
         }
 
@@ -52,7 +48,8 @@ public class RandomUniquePitchGenerator implements PitchGenerator{
         boolean withInRange = true;
 
         for (int pitch : pitches) {
-            if (pitch < minPitchValue || pitch > maxPitchValue) {
+            if (pitch < PitchGeneratorConstant.MIN_PITCH_VALUE
+                    || pitch > PitchGeneratorConstant.MAX_PITCH_VALUE) {
                 withInRange = false;
             }
         }

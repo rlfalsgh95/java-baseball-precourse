@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class CLIBaseballSimulator extends BaseballSimulator{
     private final Scanner scanner;
 
-    public CLIBaseballSimulator(int pitchLen, PitchGenerator pitchGenerator){
-        super(pitchLen, pitchGenerator);
+    public CLIBaseballSimulator(int pitchLen){
+        super(pitchLen);
         this.scanner = new Scanner(System.in);
     }
 
