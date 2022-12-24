@@ -20,7 +20,7 @@ public abstract class BaseballSimulator {
         do{
             BaseballResult baseballResult = playBaseball();
             notifyGameResult(baseballResult);
-        }while(getShouldRestart());
+        }while(isGameRestart());
     }
 
     private BaseballResult playBaseball(){
@@ -51,10 +51,10 @@ public abstract class BaseballSimulator {
     }
 
     private PitchResult playPitch(int pitchIdx, int userPitch, List<Integer> simulatorPitches){
-        boolean isStrike = (simulatorPitches.get(pitchIdx) == userPitch);
-        boolean isBall = (!isStrike && simulatorPitches.contains(userPitch));
+        boolean includeStrike = (simulatorPitches.get(pitchIdx) == userPitch);
+        boolean includeBall = (!includeStrike && simulatorPitches.contains(userPitch));
 
-        return new PitchResult(isBall, isStrike);
+        return new PitchResult(includeBall, includeStrike);
     }
 
     private boolean isGameEnd(InningResult inningResult) {
@@ -62,7 +62,8 @@ public abstract class BaseballSimulator {
         return (strikeCnt == pitchLen);
     }
 
-    protected boolean isGameRestart(String shouldRestart) {
+    private boolean isGameRestart() {
+        String shouldRestart = getShouldRestart();
         return shouldRestart.equals(BaseballSimulatorConstant.GAME_RESTART);
     }
 
@@ -72,5 +73,5 @@ public abstract class BaseballSimulator {
 
     protected abstract List<Integer> getUserPitches();
 
-    protected abstract boolean getShouldRestart();
+    protected abstract String getShouldRestart();
 }

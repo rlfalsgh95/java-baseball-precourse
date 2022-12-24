@@ -57,10 +57,10 @@ public class CLIBaseballSimulator extends BaseballSimulator{
     }
 
     @Override
-    protected boolean getShouldRestart() {
+    protected String getShouldRestart() {
         displayGameRestart();
         String shouldRestart = scanner.nextLine();
-        return isGameRestart(shouldRestart);
+        return shouldRestart;
     }
 
     @Override
