@@ -36,6 +36,7 @@
   - 입력/출력은 GUI, API로 확장될 수 있다고 생각되어 입력/출력은 자식 클래스에서 오버라이딩하도록 구현함. (템플릿 메서드 패턴)
   - 시뮬레이터에서 Pitch를 생성/검증하는 클래스를 분리함. (전략 패턴)
   - 숫자의 길이가 3으로 고정되지 않도록 구현함
+  - game/inning/pitch의 결과를 주고 받을 때, dto를 사용함.
 
 ## ❓ Question
   - BaseballSimulator와 PitchGenerator의 결합도가 높아보임, 과연 분리하는 게 옳았는가?
@@ -44,7 +45,8 @@
   - CLIBaseballSimulator의 출력 메시지도 상수로 빼놓는 것이 좋은지? 하지만, 메시지에 변수가 포함되어 빼기가 힘듦. 
   - RandomUniquePitchGenerator.isPitchWithInRange()처럼, 배열 내의 특정 요소에 대해 동작하는 코드는 어떻게 작성?
   - 메서드의 반환 값을 변수에 넣고 반환하는 것이 아니라, 메서드의 반환을 바로 반환하여도 좋은가? (ex. CLIBaseballSimulator.getUserPitches())
-
+  - Stream의 사용을 지양하는 이유는? 디버깅의 어려움?
+  
 ## Learned
     처음엔 쉬운 과제라고 생각했습니다.
     하지만, 과제를 진행할수록, 어떻게하면 유지보수가 쉬울까, 어떻게하면 가독성을 높일 수 있을까 생각하다보니 고민이 깊어졌습니다.
