@@ -33,7 +33,7 @@
         - BaseballSimulator.java : 숫자 야구 게임을 정의한 추상 클래스
       
 ## 📄 Description
-  - 입력/출력은 GUI, API로 확장될 수 있다고 생각되어 입력/출력은 자식 클래스에서 오버라이딩하도록 구현함. (템플릿 메서드 패턴)
+  - 입력/출력은 GUI, API... 등으로 확장될 수 있다고 생각되어 자식 클래스에서 오버라이딩하도록 구현함. (템플릿 메서드 패턴)
   - 시뮬레이터에서 Pitch를 생성/검증하는 클래스를 분리함. (전략 패턴)
   - 숫자의 길이가 3으로 고정되지 않도록 구현함
   - game/inning/pitch의 결과를 메서드간 주고 받을 때, dto를 사용함.
@@ -49,7 +49,8 @@
   
 ## Learned
     처음엔 쉬운 과제라고 생각했습니다.
-    하지만, 과제를 진행할수록, 어떻게하면 유지보수가 쉬울까, 어떻게하면 가독성을 높일 수 있을까 생각하다보니 고민이 깊어졌습니다.
+    하지만, 과제를 진행할수록, 어떻게하면 유지보수가 쉬울까, 
+    어떻게하면 가독성을 높일 수 있을까 생각하다보니 고민이 깊어졌습니다.
 
     혼자 고민하다보니, 제출한 코드의 퀄리티가 매우 낮습니다.
     이번 온보딩 과정에서 많이 배워서 성장하고 싶습니다!
@@ -59,5 +60,5 @@
 - [우테코 Style Guide](https://github.com/woowacourse/woowacourse-docs/tree/main/styleguide/java)
 - [우테코 PR 점검사항](https://github.com/woowacourse/woowacourse-docs/blob/main/cleancode/pr_checklist.md)
 - [[코딩규칙] 자바 코딩 규칙(Java Code Conventions)](https://myeonguni.tistory.com/1596)
-- [Code Conventions for the Java TM Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-contents.html)ww.oracle.com/java/technologies/javase/codeconventions-contents.html)
+- [Code Conventions for the Java TM Programming Language](https://www.oracle.com/java/technologies/javase/codeconventions-contents.html)
 - [AngularJS Git Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
