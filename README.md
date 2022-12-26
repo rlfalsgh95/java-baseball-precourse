@@ -12,6 +12,8 @@
 
 ## 🏛️ Structure
   - src
+    - test/java/baseball
+      - ApplicationTest.java
     - main
       - utll
         - StringUtils.java : 문자열과 관련된 유틸 클래스
@@ -29,14 +31,12 @@
           - RandomUniquePitchGenerator.java : 랜덤으로 Pitch를 생성/검증하는 클래스
         - Application.java
         - BaseballSimulator.java : 숫자 야구 게임을 정의한 추상 클래스
-    - test/java/baseball
-      - ApplicationTest.java
       
 ## 📄 Description
   - 입력/출력은 GUI, API로 확장될 수 있다고 생각되어 입력/출력은 자식 클래스에서 오버라이딩하도록 구현함. (템플릿 메서드 패턴)
   - 시뮬레이터에서 Pitch를 생성/검증하는 클래스를 분리함. (전략 패턴)
   - 숫자의 길이가 3으로 고정되지 않도록 구현함
-  - game/inning/pitch의 결과를 주고 받을 때, dto를 사용함.
+  - game/inning/pitch의 결과를 메서드간 주고 받을 때, dto를 사용함.
 
 ## ❓ Question
   - BaseballSimulator와 PitchGenerator의 결합도가 높아보임, 과연 분리하는 게 옳았는가?
